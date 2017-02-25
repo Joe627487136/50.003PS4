@@ -11,13 +11,15 @@ public class FactorPrimeClientMul {
         try{
             Socket echoSocket = new Socket(hostName, portNumber);
             BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-            FactorPrime factorPrime = new FactorPrime();
-            int n = Integer.valueOf(in.readLine());
+            smallestPrimeFactor factorPrime = new smallestPrimeFactor();
+            BigInteger n = new BigInteger(in.readLine());
             in.close();
             echoSocket.close();
 
             System.out.println("start factoring.");
-            String ans = factorPrime.primeFactors(n).toString();
+            BigInteger ans1 = factorPrime.smallestPrimeFactor(n);
+            BigInteger ans2 = n.divide(ans1);
+            String ans = "Small prime: "+ans1+" | "+"Big prime: "+ans2;
             System.out.println("done factoring.");
 
             try {

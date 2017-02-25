@@ -2,6 +2,7 @@ package Week5;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -9,12 +10,11 @@ import java.util.ArrayList;
 public class FactorPrimeServerMul {
 
     public static void main (String[] args) throws Exception {
-        int n = 21;
-        ServerSocket serverSocket = new ServerSocket(4700);
-        serverSocket.setSoTimeout(60000);//1min
+        BigInteger n = new BigInteger("21");
+        ServerSocket serverSocket = new ServerSocket(4701);
+        serverSocket.setSoTimeout(10000);//10s
         ArrayList<Socket> sockets = new ArrayList<Socket>();
         ArrayList<PrintWriter> outChannels = new ArrayList<PrintWriter>();
-        long startTime = System.currentTimeMillis();
         while (true) {
             try {
                 Socket newSocket = serverSocket.accept();
@@ -29,6 +29,15 @@ public class FactorPrimeServerMul {
         }
 
         System.out.println(sockets.size()+"clients are in. Getting the reflection...");
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < sockets.size(); i++) {
+            PrintWriter out = new PrintWriter(sockets.get(i).getOutputStream(), true);
+            out.println(n.toString());
+            out.println(i+2);
+            out.println(sockets.size());
+            out.flush();
+            out.close();
+        }
         Socket client = serverSocket.accept();
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String result = in.readLine();

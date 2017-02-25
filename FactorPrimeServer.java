@@ -9,7 +9,7 @@ import java.net.Socket;
 public class FactorPrimeServer {
 
     public static void main (String[] args) throws Exception {
-        int n = 21;
+        BigInteger n = new BigInteger("21");
         ServerSocket serverSocket = new ServerSocket(4700);
         long startTime = System.currentTimeMillis();
 
