@@ -8,6 +8,7 @@ public class FactorPrimeClient {
     public static void main(String[] args) throws Exception {
         String hostName = "127.0.0.1";
         int portNumber = 4700;
+        int portNumber2 = 4701;
         try{
             Socket echoSocket = new Socket(hostName, portNumber);
             BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
@@ -23,7 +24,7 @@ public class FactorPrimeClient {
             System.out.println("done factoring.");
 
             try {
-                echoSocket = new Socket(hostName, portNumber);
+                echoSocket = new Socket(hostName, portNumber2);
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
                 out.println(ans);
                 out.flush();

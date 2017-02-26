@@ -11,6 +11,7 @@ public class FactorPrimeServer {
     public static void main (String[] args) throws Exception {
         BigInteger n = new BigInteger("21");
         ServerSocket serverSocket = new ServerSocket(4700);
+        ServerSocket Socket2 = new ServerSocket(4701);
         long startTime = System.currentTimeMillis();
 
         for (int i = 0; i < 3; i++) {
@@ -25,10 +26,10 @@ public class FactorPrimeServer {
         }
 
         System.out.println("Getting the reflection...");
-        Socket client = serverSocket.accept();
+        Socket client = Socket2.accept();
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String result = in.readLine();
-        serverSocket.close();
+        Socket2.close();
 
         long time = System.currentTimeMillis() - startTime;
         System.out.println("Factors are: " + result);
