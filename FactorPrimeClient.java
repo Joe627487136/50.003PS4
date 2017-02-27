@@ -24,7 +24,7 @@ public class FactorPrimeClient {
             System.out.println("done factoring.");
 
             try {
-                echoSocket = new Socket(hostName, portNumber2);
+                Socket Socket = new Socket(hostName, portNumber2);
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
                 out.println(ans);
                 out.flush();

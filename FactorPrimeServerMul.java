@@ -12,7 +12,8 @@ public class FactorPrimeServerMul {
     public static void main (String[] args) throws Exception {
         BigInteger n = new BigInteger("21");
         ServerSocket serverSocket = new ServerSocket(4701);
-        serverSocket.setSoTimeout(10000);//10s
+        ServerSocket serverSocket2 = new ServerSocket(4702);
+        serverSocket.setSoTimeout(30000);//30s
         ArrayList<Socket> sockets = new ArrayList<Socket>();
         ArrayList<PrintWriter> outChannels = new ArrayList<PrintWriter>();
         while (true) {
@@ -38,7 +39,7 @@ public class FactorPrimeServerMul {
             out.flush();
             out.close();
         }
-        Socket client = serverSocket.accept();
+        Socket client = serverSocket2.accept();
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         String result = in.readLine();
         serverSocket.close();

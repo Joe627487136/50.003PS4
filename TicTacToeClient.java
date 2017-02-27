@@ -19,14 +19,12 @@ public class TicTacToeClient {
         BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 
         int[][] board = new int[3][3];
-
+        int turn = 0;
         while (true) {
             int move = Integer.valueOf(in.readLine());
             if (move != 0) {
                 board[move/10-1][move%10-1] = 9;
-
                 printBoard(board);
-
                 if (checkwin(board)) {
                     break;
                 }
@@ -38,7 +36,6 @@ public class TicTacToeClient {
             out.flush();
             board[myMove/10-1][myMove%10-1] = 1;
             printBoard(board);
-
             if (checkwin(board)) {
                 break;
             }

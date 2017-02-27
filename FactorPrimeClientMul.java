@@ -6,12 +6,14 @@ import java.net.*;
 
 public class FactorPrimeClientMul {
     public static void main(String[] args) throws Exception {
-        String hostName = "127.0.0.1";
+        String hostName = "localhost";
         int portNumber = 4701;
+        int portNumber2 = 4702;
         try{
             Socket echoSocket = new Socket(hostName, portNumber);
             BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
             smallestPrimeFactor factorPrime = new smallestPrimeFactor();
+            System.out.println(in.readLine());
             BigInteger n = new BigInteger(in.readLine());
             in.close();
             echoSocket.close();
@@ -23,7 +25,7 @@ public class FactorPrimeClientMul {
             System.out.println("done factoring.");
 
             try {
-                echoSocket = new Socket(hostName, portNumber);
+                Socket Socket = new Socket(hostName, portNumber2);
                 PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
                 out.println(ans);
                 out.flush();

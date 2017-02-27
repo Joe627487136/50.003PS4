@@ -40,7 +40,7 @@ public class TicTacToe {
             printBoard(board);
             count = 1 - count;
             turn++;
-        } while (!check9win(board));
+        } while (!check9win(board)&&turn<=9);
         for (int i = 0; i < 2; i++) {
             sockets[i].close();
             input[i].close();
