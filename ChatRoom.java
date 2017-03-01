@@ -7,12 +7,10 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatRoom {
-    private PrintWriter out;
     private List<ServerThread> clients = null;
 
     public static void main(String[] args) {
@@ -22,26 +20,26 @@ public class ChatRoom {
     private void startUp() {
         ServerSocket ss = null;
         Socket s = null;
-        try {
-            ss = new ServerSocket(5858);
-            clients = new ArrayList<ServerThread>();
-            out = new PrintWriter(s.getOutputStream(), true);
-            BufferedReader sbr = new BufferedReader(new InputStreamReader(System.in));
-            while (true) {
-                s = ss.accept();
-                ServerThread st = new ServerThread(s);
-                new Thread(st).start();
-                out.println(sbr.readLine());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
+        boolean chatroom_bool=true;
+        while (chatroom_bool){
             try {
-                if (ss != null)
-                    ss.close();
+                ss = new ServerSocket(5858);
+                clients = new ArrayList<ServerThread>();
+                while (true) {
+                    s = ss.accept();
+                    ServerThread st = new ServerThread(s);
+                    new Thread(st).start();
+                }
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("ChatRoom Closed");
+                chatroom_bool=false;
+            } finally {
+                try {
+                    if (ss != null)
+                        ss.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
